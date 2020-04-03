@@ -16,14 +16,16 @@
 <table class="footable table table-stripped" data-page-size="8">
 	<thead>
 		<tr>
+			<th>S.no</th>
 			<th>Name</th>
 			<th>Gender</th>
 			<th>Discount(5% for female)</th>
 		</tr>
 	</thead>
   <tbody>
-		<% @users.each do |user| %>
+		<% @users.each_with_index do |user, index| %>
 			<tr>
+				<td><%= index+1 %></td>
 				<td><%= user.name %></td>
 				<td><%= user.gender  %></td>
 				<td><%= user.gender == "female" ? calculate_fees(@event) : @event.fees %></td>
