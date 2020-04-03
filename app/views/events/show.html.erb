@@ -1,0 +1,48 @@
+<p><h5>Event Name: <%= @event.name %></h5></p>
+<p><h5>Past Event: <%= @event.on_going ? "No" : "yes" %></p>
+<% if @event.on_going %>
+	<% if current_user && @user_event.blank? %>
+		<p><button class="btn btn-primary" id="attend_button" onclick="save_record(<%= @event.id %>, true)">Attend</button> &nbsp;<button class="btn btn-primary" onclick="save_record(<%= @event.id %>, false)">Unattend</button></p>
+	<% end %>
+	<% if current_user && @user_event.present? %>
+		<% if @user_event.is_attending %>
+			<p><button class="btn btn-primary" onclick="save_record(<%= @event.id %>, false)">Unattend</button></p>
+		<% else %>
+			<p><button class="btn btn-primary" onclick="save_record(<%= @event.id %>, true)">Attend</button> &nbsp;
+		<% end %>
+	<% end %>
+<% end %>	
+<center><h4>List of Attending Users</h4></center>
+<table class="footable table table-stripped" data-page-size="8">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Discount(5% for female)</th>
+		</tr>
+	</thead>
+    <tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.name %></td>
+				<td><%= user.gender  %></td>
+				<td><%= user.gender == "female" ? calculate_fees(@event) : @event.fees %></td>
+			</tr>
+		<% end %>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+	function save_record(event_id, is_attending){
+		$.ajax({
+      url: '/attendance',
+      type: 'post',
+      data: {event_id: event_id, is_attending: is_attending, user_id: '<%= current_user.id if current_user %>'},
+      success: function(data) {
+        location.reload();      
+      },
+      error: function(data) {
+      }
+    });  
+	}
+</script>
