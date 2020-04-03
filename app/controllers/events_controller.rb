@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   	@user_event = UserEvent.find_by(user_id: current_user, event_id: @event) if current_user
   	@users = User.includes(user_events: [:event]).where(user_events: {is_attending: true, events: {on_going: true, id: @event.id}})
   	if @user_event
-  		flash[:alert] = "#{current_user.name} is #{@user_event.is_attending ? "" : "not"} attending the event."
+  		flash[:alert] = "#{current_user.name} is #{@user_event.is_attending ? "" : "not"} attending the #{@event.name} event."
   	end
   end
 
