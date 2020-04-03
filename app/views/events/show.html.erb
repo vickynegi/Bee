@@ -21,7 +21,7 @@
 			<th>Discount(5% for female)</th>
 		</tr>
 	</thead>
-    <tbody>
+  <tbody>
 		<% @users.each do |user| %>
 			<tr>
 				<td><%= user.name %></td>
@@ -29,7 +29,7 @@
 				<td><%= user.gender == "female" ? calculate_fees(@event) : @event.fees %></td>
 			</tr>
 		<% end %>
-    </tbody>
+  </tbody>
 </table>
 
 <script type="text/javascript">
