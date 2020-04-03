@@ -9,7 +9,7 @@ Things you may want to cover:
 * Rails 5.2
 * Database: PostgreSQL 10.12
 * please mention database and password in database.yml file
-* please run seed file, it contains dummy data:- 
+* please run seed file:- 
   rake db:create
   rake db:migrate
   rake db:seed
